@@ -46,6 +46,6 @@ class CategoriesController < ApplicationController
     end
 
     def verify_is_admin
-      (current_user.nil?) ? redirect_to(root_pathnew_user_session_path) : (redirect_to(new_user_session_path) unless current_user.admin?)
+      (current_user.nil?) ? redirect_to(new_user_session_path) : (redirect_to(new_user_session_path) unless current_user.admin?)
     end
 end
