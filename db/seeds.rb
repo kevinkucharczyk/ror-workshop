@@ -40,7 +40,8 @@ adminuser = User.create(firstname: 'Admin',
   lastname: 'Admin',
   email: 'adminadmin@nosuchmail.com',
   password: 'testpassword',
-  password_confirmation: 'testpassword')
+  password_confirmation: 'testpassword',
+  admin: true)
 
 category1 = Category.create(name: 'Cars')
 category2 = Category.create(name: 'Phones')
