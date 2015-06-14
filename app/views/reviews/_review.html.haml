@@ -1,4 +1,14 @@
-%p= review.content
-%p
-  %b= review.rating
-  %em= review.author
+.row
+  .col-sm-12
+    Rated
+    %strong= review.rating
+    out of 5
+
+    %p
+      By
+      = link_to user_path(review.user) do
+        %em= review.author
+      on
+      %em= review.created_at.strftime("%d-%m-%y")
+    %p= review.content
+    %hr

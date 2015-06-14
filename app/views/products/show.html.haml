@@ -1,30 +1,37 @@
-%p#notice= notice
 %p#error= flash[:error]
 
-%p
-  %b Title:
+%h3
   = product.title
-%p
-  %b Description:
-  = product.description
-%p
-  %b Price:
-  = product.price
+  - if !current_user.nil? && (current_user.admin? || product.user == current_user)
+    .btn-group.btn-group-xs
+      = link_to 'Edit', edit_category_product_path(product.category, product), :class => 'btn btn-default'
+      = link_to 'Destroy', category_product_path(product.category, product), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default'
 
-%p
-  %b Category
-  = product.category.name
-
-%p
-  %b Average Rating
-  = product.average_rating
+%table.table.table-hover
+  %tr
+    %th{:scope => 'row', :class => 'col-sm-2'}
+      Description
+    %td{:class => 'col-sm-10'}
+      = product.description
+  %tr
+    %th{:scope => 'row', :class => 'col-sm-2'}
+      Price
+    %td{:class => 'col-sm-10'}
+      = product.price
+  %tr
+    %th{:scope => 'row', :class => 'col-sm-2'}
+      Average Rating
+    %td{:class => 'col-sm-10'}
+      = product.average_rating
 
 %h3 Reviews
-= render 'reviews/form'
+.container
+  = render reviews
 
-= render reviews
+- if !current_user.nil?
+  %h3 Submit your own review
+  = render 'reviews/form'
 
-- if !current_user.nil? && (current_user.admin? || product.user == current_user)
-  = link_to 'Edit', edit_category_product_path(category.id, product.id)
-  \|
-= link_to 'Back', category_products_path, class: 'btn btn-primary'
+%hr
+
+= link_to "Back to #{category.name}", category_products_path, class: 'btn btn-default'

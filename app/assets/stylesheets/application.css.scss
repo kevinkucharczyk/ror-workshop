@@ -1,1 +1,39 @@
 @import "bootstrap";
+
+$light-color: #EFFFCD;
+$green-color: #DCE9BE;
+$dark-color: #2E2633;
+$grey-color: #555152;
+$purple-color: #99173C;
+
+body {
+  color: $grey-color;
+}
+
+a {
+  color: $purple-color;
+  &:hover {
+    color: lighten($purple-color, 20%);
+  }
+}
+
+.navbar-default {
+  background-color: $dark-color;
+  .navbar-brand {
+    color: $light-color;
+    &:hover {
+      color: $green-color;
+    }
+  }
+  .navbar-nav {
+    li {
+      a {
+        color: $light-color;
+        &:hover {
+          color: $dark-color;
+          background-color: $light-color;
+        }
+      }
+    }
+  }
+}

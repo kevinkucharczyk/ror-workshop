@@ -1,9 +1,24 @@
 = content_for(:title, "#{@user.firstname} #{@user.lastname}")
 
-%h1 Users#show
-%p= @user.firstname
+%h1
+  #{@user.firstname} #{@user.lastname}
 
+%h3 Reviews
 - @reviews.each do |review|
-  %p= review.product.title
-  %p= review.rating
-  %p= review.created_at.strftime("%d-%m-%y")
+  .row
+    .col-sm-12
+      %h5
+        = link_to category_product_path(review.product.category, review.product) do
+          %em= review.product.title
+        in
+        = link_to review.product.category do
+          %em= review.product.category.name
+      Rated
+      %strong= review.rating
+      out of 5
+
+      %p
+        on
+        %em= review.created_at.strftime("%d-%m-%y")
+      %p= review.content
+      %hr

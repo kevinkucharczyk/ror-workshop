@@ -1,21 +1,28 @@
-%h1 Listing products
+%h1
+  Products in
+  %strong= category.name
 
-%table
+%table.table.table-hover
   %tr
     %th Title
     %th Description
     %th Price
-    %th
-    %th
-    %th
+    %th Average Rating
 
   - category.products.each do |product|
     %tr
-      %td= link_to product.title, category_product_path(product.category, product)
+      %td
+        = link_to product.title, category_product_path(product.category, product)
+        - if !current_user.nil? && (current_user.admin? || product.user == current_user)
+          .btn-group.btn-group-xs
+            = link_to 'Edit', edit_category_product_path(product.category, product), :class => 'btn btn-default'
+            = link_to 'Destroy', category_product_path(product.category, product), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default'
       %td= product.description
       %td= product.price
-      - if !current_user.nil? && (current_user.admin? || product.user == current_user)
-        %td= link_to 'Edit', edit_category_product_path(product.category, product)
-        %td= link_to 'Destroy', category_product_path(product.category, product), method: :delete, data: { confirm: 'Are you sure?' }
+      %td= product.average_rating
+  - if !current_user.nil?
+    %tr
+      %td
+        = link_to 'Add new product', new_category_product_path(category)
 
-%br
+= link_to "Back to categories", categories_path, class: 'btn btn-default'

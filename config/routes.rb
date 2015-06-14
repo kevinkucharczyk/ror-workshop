@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     end
   end
 
-  match 'users/:id' => 'users#show', via: :get
+  match 'users/:id' => 'users#show', via: :get, as: 'user'
 
   root 'categories#index'
 end

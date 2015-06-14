@@ -12,17 +12,19 @@
 
   %body
     %nav.navbar.navbar-default
-      .container-fluid
+      .container
         .navbar-header
-          %span.navbar-brand #{AppConfig.workshops_name}
-        %p.navbar-text.navbar-right
-          - if current_user.nil?
-            = link_to 'Sign in', new_user_session_path
-            = link_to 'Sign up', new_user_registration_path
-          - else
-            = link_to 'Edit accont', edit_user_registration_path
-            = link_to 'Sign out', destroy_user_session_path, :method => :delete
-    .container-fluid
+          = link_to root_url, :class => 'navbar-brand' do
+            #{AppConfig.workshops_name}
+        .navbar-right
+          %ul.nav.navbar-nav
+            - if current_user.nil?
+              %li= link_to 'Sign in', new_user_session_path
+              %li= link_to 'Sign up', new_user_registration_path
+            - else
+              %li= link_to 'Edit account', edit_user_registration_path
+              %li= link_to 'Sign out', destroy_user_session_path, :method => :delete
+    .container
       .row
         .col-lg-12
           = yield

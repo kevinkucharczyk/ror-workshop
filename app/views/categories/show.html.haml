@@ -1,18 +1,30 @@
-%p#notice= notice
+%h1
+  Products in
+  %strong= category.name
+  - if !current_user.nil? && current_user.admin?
+    = link_to 'Edit', edit_category_path(category), :class => 'btn btn-default btn-sm'
 
-%p
-  %b Name:
-  = category.name
+%table.table.table-hover
+  %tr
+    %th Title
+    %th Description
+    %th Price
+    %th Average rating
 
-%p
   - category.products.each do |product|
-    = link_to product.title, category_product_url(category, product)
+    %tr
+      %td
+        = link_to product.title, category_product_path(product.category, product)
+        - if !current_user.nil? && (current_user.admin? || product.user == current_user)
+          .btn-group.btn-group-xs
+            = link_to 'Edit', edit_category_product_path(product.category, product), :class => 'btn btn-default'
+            = link_to 'Destroy', category_product_path(product.category, product), method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-default'
+      %td= product.description
+      %td= product.price
+      %td= product.average_rating
+  - if !current_user.nil?
+    %tr
+      %td
+        = link_to 'Add new product', new_category_product_path(category)
 
-- if !current_user.nil?
-  %p
-    = link_to 'Add new product', new_category_product_path(category)
-
-- if !current_user.nil? && current_user.admin?
-  = link_to 'Edit', edit_category_path(category)
-  \|
-= link_to 'Back', categories_path, class: 'btn btn-primary'
+= link_to "Back to categories", categories_path, class: 'btn btn-default'
