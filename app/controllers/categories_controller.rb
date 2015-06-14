@@ -9,6 +9,9 @@ class CategoriesController < ApplicationController
   end
 
   def show
+    if !current_user.admin?
+      redirect_to category_products_url(category)
+    end
   end
 
   def new
@@ -45,6 +48,7 @@ class CategoriesController < ApplicationController
       params.require(:category).permit(:name)
     end
 
+  private
     def verify_is_admin
       (current_user.nil?) ? redirect_to(new_user_session_path) : (redirect_to(new_user_session_path) unless current_user.admin?)
     end

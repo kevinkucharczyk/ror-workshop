@@ -1,0 +1,9 @@
+= content_for(:title, "#{@user.firstname} #{@user.lastname}")
+
+%h1 Users#show
+%p= @user.firstname
+
+- @reviews.each do |review|
+  %p= review.product.title
+  %p= review.rating
+  %p= review.created_at.strftime("%d-%m-%y")

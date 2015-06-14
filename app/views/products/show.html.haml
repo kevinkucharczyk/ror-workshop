@@ -15,11 +15,16 @@
   %b Category
   = product.category.name
 
+%p
+  %b Average Rating
+  = product.average_rating
+
 %h3 Reviews
 = render 'reviews/form'
 
 = render reviews
 
-= link_to 'Edit', edit_category_product_path(category.id, product.id)
-\|
+- if !current_user.nil? && (current_user.admin? || product.user == current_user)
+  = link_to 'Edit', edit_category_product_path(category.id, product.id)
+  \|
 = link_to 'Back', category_products_path, class: 'btn btn-primary'

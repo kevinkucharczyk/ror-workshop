@@ -10,7 +10,7 @@ def average_rating
   if self.reviews.size > 0
     self.reviews.average(:rating)
   else
-    'undefined'
+    'none yet'
   end
 end
 end
