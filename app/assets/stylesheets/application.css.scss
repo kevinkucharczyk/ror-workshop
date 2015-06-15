@@ -6,6 +6,27 @@ $dark-color: #2E2633;
 $grey-color: #555152;
 $purple-color: #99173C;
 
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+@mixin box-shadow($h, $v, $blur, $spread, $color) {
+  -webkit-box-shadow: $h $v $blur $spread $color;
+     -moz-box-shadow: $h $v $blur $spread $color;
+          box-shadow: $h $v $blur $spread $color;
+}
+
+@mixin transition ($what, $duration, $function, $offset) {
+  -webkit-transition: $what $duration $function $offset;
+     -moz-transition: $what $duration $function $offset;
+       -o-transition: $what $duration $function $offset;
+      -ms-transition: $what $duration $function $offset;
+          transition: $what $duration $function $offset;
+}
+
 body {
   color: $grey-color;
 }
@@ -35,5 +56,51 @@ a {
         }
       }
     }
+  }
+}
+
+.unstyled-list {
+  list-style: none;
+  text-align: center;
+  font-size: 20px;
+
+  li {
+    display: inline-block;
+    margin: 30px;
+    vertical-align: top;
+
+    a {
+      display: inline-block;
+      padding: 30px;
+      border: 1px solid lighten($grey-color, 50%);
+      @include border-radius(4px);
+      @include box-shadow(0px, 1px, 1px, 0px, rgba(0,0,0,0.5));
+      @include transition(all, 0.1s, linear, 0s);
+      &:hover, &:active, &:focus {
+        text-decoration: none;
+      }
+      &:hover {
+        @include box-shadow(0px, 1px, 1px, 0px, $purple-color);
+      }
+
+      &:active, &:focus {
+        transform: translateY(3px);
+        @include box-shadow(0px, 0px, 0px, 0px, $purple-color);
+      }
+
+      em {
+        display: block;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.li-btn-group {
+  display: block !important;
+
+  > .btn {
+    width: 50% !important;
+    padding: 5px 0 !important;
   }
 }
