@@ -9,7 +9,7 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    if !current_user.admin?
+    if current_user.nil? || !current_user.admin?
       redirect_to category_products_url(category)
     end
   end
